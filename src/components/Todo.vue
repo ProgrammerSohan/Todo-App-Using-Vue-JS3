@@ -9,11 +9,11 @@
             class="todoInput" 
             v-model="model" 
             placeholder="Enter a new todo!" />
-       <button class="addTodoBtn">Add Todo </button>
+       <button @click="addTodo" class="addTodoBtn">Add Todo </button>
        </div>
         <ul class="ul">
             <li v-for="(item,index) in data" :key="index">
-                <span>{{ item }}</span>
+                <span>{{ item.text }}</span>
                 <div class="btnGroup">
                     <button class="doneBtn">Done</button>
                     <button class="deleteBtn">Delete</button>
@@ -30,8 +30,18 @@ export default{
             model: "",
             data: [],
         };
-
     },
+    methods:{
+        addTodo(){
+            if(this.model!==""){
+                this.data.push({
+                    id:Date.now(),
+                    text:this.model,
+                    completed:false
+                })
+            }
+        }
+    }
 
 };
 
@@ -89,12 +99,12 @@ export default{
     justify-content: space-between;
     border-radius: 5px;
     padding-left: 1rem;
-    background-color: wheat;
+    background-color: rgb(129, 23, 228);
 }
 .btnGroup{
     display: flex;
     justify-content: center;
-    gap: 2px;
+    gap: 5px;
 
 }
 .deleteBtn{

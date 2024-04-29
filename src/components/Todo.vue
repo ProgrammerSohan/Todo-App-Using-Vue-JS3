@@ -13,10 +13,10 @@
        </div>
         <ul class="ul">
             <li v-for="(item,index) in data" :key="index">
-                <span>{{ item.text }}</span>
+                <span :class="{strike:item.completed}">{{ item.text }}</span>
                 <div class="btnGroup">
-                    <button class="doneBtn">Done</button>
-                    <button class="deleteBtn">Delete</button>
+                    <button @click="doneTodo(item)" class="doneBtn">Done</button>
+                    <button @click="deleteTodo(index)" class="deleteBtn">Delete</button>
                 </div>
             </li>
         </ul>
@@ -38,15 +38,29 @@ export default{
                     id:Date.now(),
                     text:this.model,
                     completed:false
-                })
+                });
             }
-        }
-    }
+            this.model = "";
+            this.$refs.myInput.focus();
+        },
+        deleteTodo(index){
+            this.data.splice(index, 1);
+        },
+        doneTodo(item){
+            const idx=this.data.findIndex((x)=>x.id===item.id);
+            this.data[idx].completed = !item.completed;
+        },
+    },
 
 };
 
 </script>
 <style scoped>
+
+.strike{
+    text-decoration: line-through;
+    color: black;
+}
 .wrapper {
     width: 100%;
     display: flex;

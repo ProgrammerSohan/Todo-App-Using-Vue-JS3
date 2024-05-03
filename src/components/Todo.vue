@@ -2,6 +2,9 @@
     <div class="wrapper">
        <h1> Todo By Sohan!!</h1>
        <h2 class="header">Todo List</h2>
+       <div class="completedDiv">
+         <p style="color:white">Total Task--{{ data.length }} // Completed Task--{{ getCompleted }}</p>
+       </div>
        <div class="inputDiv">
             <input 
             ref="myInput" 
@@ -30,6 +33,11 @@ export default{
             model: "",
             data: [],
         };
+    },
+    computed:{
+        getCompleted(){
+            return this.data.filter((item)=>item.completed).length;
+        },
     },
     methods:{
         addTodo(){
@@ -143,4 +151,11 @@ export default{
     background-color: green;
     color:white;
 }
+.completedDiv {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+
+}
+
 </style>

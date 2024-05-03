@@ -2,7 +2,7 @@
     <div class="wrapper">
        <h1> Todo By Sohan!!</h1>
        <h2 class="header">Todo List</h2>
-       <div class="completedDiv">
+       <div ref="completedRef" class="completedDiv">
          <p style="color:white">Total Task--{{ data.length }} // Completed Task--{{ getCompleted }}</p>
        </div>
        <div class="inputDiv">
@@ -33,6 +33,15 @@ export default{
             model: "",
             data: [],
         };
+    },
+    watch:{
+        getCompleted(newVal){
+            if(newVal / this.data.length >= 0.5){
+                this.$refs.completedRef.style.background = "green";
+            }else {
+                this.$refs.completedRef.style.background = "red";
+            }
+        }
     },
     computed:{
         getCompleted(){
